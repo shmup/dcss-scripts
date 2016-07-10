@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#usage: ./unused_monster_glyphs.py > out.html
+# usage: ./unused_monster_glyphs.py > out.html
 
 import urllib.request
 import datetime
@@ -18,10 +18,11 @@ for line in monster_data:
 ords = [ord(x) for x in used_glyphs]
 ords.sort()
 
-def find_missing(glyphs,start=None,limit=None):
+
+def find_missing(glyphs, start=None, limit=None):
     start = start if start is not None else glyphs[0]
     limit = limit if limit is not None else glyphs[-1]
-    return [chr(i) for i in range(start,limit + 1) if i not in glyphs]
+    return [chr(i) for i in range(start, limit + 1) if i not in glyphs]
 
 output = find_missing(ords, 48, 57) + find_missing(ords, 97, 122) + find_missing(ords, 65, 90)
 

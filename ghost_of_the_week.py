@@ -3,6 +3,7 @@
 
 import json
 import math
+import datetime
 import urllib.request
 
 term='https://loom.shalott.org/api/sequell/ldb?term='
@@ -12,8 +13,6 @@ query = '!lg * week !boring s=killer killer=~ghost'
 params = '+'.join(query.split(' '))
 result = urllib.request.urlopen(listgame + params).read()
 data = json.loads(result.decode())
-
-print('Searching for: ' + learndb + params)
 
 motd = """
                      _______           _______  _______ _________
@@ -45,5 +44,7 @@ motd += "\r\n\r\n\r\n\r\n"
 motd += congrats.center(85, ' ')
 motd += "\r\n\r\n"
 motd += ('http://crawl.akrasiac.org/scoring/players/' + player + '.html').center(85, ' ')
+motd += "\r\n\r\n"
+motd += ('Generated on {:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())).center(85, ' ')
 
 print(motd)

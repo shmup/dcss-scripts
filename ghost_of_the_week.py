@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # https://github.com/crawl/sequell/blob/master/docs/api.md
+# usage: ./ghost_of_the_week.py > out.txt
 
 import json
 import math

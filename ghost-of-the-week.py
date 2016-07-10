@@ -46,6 +46,8 @@ motd += congrats.center(85, ' ')
 motd += "\r\n\r\n"
 motd += ('http://crawl.akrasiac.org/scoring/players/' + player + '.html').center(85, ' ')
 motd += "\r\n\r\n"
+motd += ('!lg * week !boring s=killer killer=~ghost').center(85, ' ')
+motd += "\r\n\r\n"
 motd += ('Generated on {:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())).center(85, ' ')
 
 print(motd)

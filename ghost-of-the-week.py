@@ -39,7 +39,7 @@ gotw = data['data'][0]
 
 player = gotw[0].split("'")[0].strip()
 
-congrats = "Congratulations " + player + "! " + str(gotw[1]) + " kills!"
+congrats = "Congratulations " + gotw[0] + "! " + str(gotw[1]) + " kills!"
 
 motd += "\r\n\r\n\r\n\r\n"
 motd += congrats.center(85, ' ')

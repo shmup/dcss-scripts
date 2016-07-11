@@ -4,6 +4,7 @@
 
 import json
 import math
+import sys
 import datetime
 import urllib.request
 
@@ -35,11 +36,22 @@ motd = """
 (_______)|/            )_(   |/     \\|(_______/  (_______)(_______/(_______/|_/    \\/
 """
 
-gotw = data['data'][0]
+bot_names = ['gw', 'tstbtto']
 
-player = gotw[0].split("'")[0].strip()
+ghost = ''
+kills = 0
 
-congrats = "Congratulations " + gotw[0] + "! " + str(gotw[1]) + " kills!"
+for g in data['data']:
+    if g[0].split("'")[0].strip() not in bot_names:
+        ghost = g[0]
+        kills = g[1]
+        break
+
+    continue
+
+player = ghost.split("'")[0].strip()
+
+congrats = "Congratulations " + ghost + "! " + str(kills) + " kills!"
 
 motd += "\r\n\r\n\r\n\r\n"
 motd += congrats.center(85, ' ')
@@ -47,6 +59,8 @@ motd += "\r\n\r\n"
 motd += ('http://crawl.akrasiac.org/scoring/players/' + player + '.html').center(85, ' ')
 motd += "\r\n\r\n"
 motd += ('!lg * week !boring s=killer killer=~ghost').center(85, ' ')
+motd += "\r\n\r\n"
+motd += ('Ignores bots: {}').format(', '.join(bot_names)).center(85, ' ')
 motd += "\r\n\r\n"
 motd += ('Generated on {:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())).center(85, ' ')
 

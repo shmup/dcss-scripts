@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# usage: ./unused_monster_glyphs.py > out.txt
+# usage: ./dcss-unused-glyphs.py > out.txt
 
 import urllib.request
 import datetime

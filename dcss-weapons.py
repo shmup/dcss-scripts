@@ -23,10 +23,16 @@ def parse_1h_size(size):
         return ''
     return size.split('_')[1].lower()
 
-def parse_2h_size(size, one_hand):
-    if one_hand != '':
-        return ''
-    return size.split('_')[1].lower()
+# def parse_2h_size(size, one_hand, weapon_type):
+#     if one_hand != '':# or 'stave' in weapon_type.lower():
+#     # if one_hand != '' or 'stave' in weapon_type.lower():
+#         return size.split('_')[1].lower()
+#     return ''
+
+def parse_2h_size(size, one_hand, weapon_type):
+    if one_hand == '' or 'stave' in weapon_type.lower():
+        return size.split('_')[1].lower()
+    return ''
 
 def calc_min_delay(base_delay, weapon=''):
     min_delay = int(base_delay) / 2
@@ -80,7 +86,7 @@ for line in f:
         double_hand, single_hand = parts[1:3]
         min_delay = calc_min_delay(base_delay)
         skill_required = calc_skill_required(base_delay, min_delay)
-        th = parse_2h_size(double_hand, parse_1h_size(single_hand))
+        th = parse_2h_size(double_hand, parse_1h_size(single_hand), parts[0])
         table_data.append([title, damage, hit, base_delay, min_delay, skill_required, th])
 
 # table_data = sorted(table_data, key=lambda x: x[0])

@@ -11,23 +11,19 @@ import urllib.request
 from terminaltables import AsciiTable
 
 fight = 'https://raw.githubusercontent.com/crawl/crawl/master/crawl-ref/source/fight.cc'
-itemprop = 'https://raw.githubusercontent.com/crawl/crawl/master/crawl-ref/source/itemprop.cc'
 
-# result = urllib.request.urlopen(itemprop).read()
-# data = json.loads(result.decode())
+# itemprop = 'https://raw.githubusercontent.com/crawl/crawl/master/crawl-ref/source/itemprop.cc'
+# table_title = 'DCSS weapon min delay'
 
-fff = '/Users/jared/code/crawl/crawl-ref/source/itemprop.cc'
+itemprop = 'https://raw.githubusercontent.com/crawl/crawl/stone_soup-0.18/crawl-ref/source/itemprop.cc'
+table_title = 'DCSS 0.18 weapon min delay'
+
+result = urllib.request.urlopen(itemprop)
 
 def parse_1h_size(size):
     if 'num' in size[:3].lower():
         return ''
     return size.split('_')[1].lower()
-
-# def parse_2h_size(size, one_hand, weapon_type):
-#     if one_hand != '':# or 'stave' in weapon_type.lower():
-#     # if one_hand != '' or 'stave' in weapon_type.lower():
-#         return size.split('_')[1].lower()
-#     return ''
 
 def parse_2h_size(size, one_hand, weapon_type):
     if one_hand == '' or 'stave' in weapon_type.lower():
@@ -55,15 +51,13 @@ def calc_min_delay(base_delay, weapon=''):
 def calc_skill_required(base_delay, min_delay):
     return str((int(base_delay) - int(min_delay)) * 2)
 
-f = open(fff, 'r')
-
 weapon_section = False
 regex = re.compile('[^a-zA-Z ]')
-
 header = ['Name', 'Damage', 'Hit', 'Base Delay', 'Min Delay', 'Skill Required', 'Min 2H Size']
 table_data = []
 
-for line in f:
+for line in result:
+    line = line.decode()
     # wait till we're in the weapons section
     if not weapon_section:
         if re.match('.*static const weapon_def Weapon_prop.*', line):
@@ -74,14 +68,15 @@ for line in f:
         parts = [x.strip() for x in line.split(',')]
         enum = re.sub('[^a-zA-Z_]', '', parts[0]).strip()
         title = re.sub('[\'"]', '', parts[1]).strip()
-        if 'old ' in title[0:4]:
-            continue
-            # title = '0.18- ' + title[4:]
         # if title == 'demon blade':
         #     break
         damage, hit, base_delay = parts[2:5]
+
     # find weapon sizes
     if re.match('.*SIZE_.*SIZE_', line):
+        # skip long gone items
+        if 'old ' in title[0:4]:
+            continue
         parts = [x.strip() for x in line.split(',')]
         double_hand, single_hand = parts[1:3]
         min_delay = calc_min_delay(base_delay)
@@ -94,7 +89,7 @@ table_data.insert(0, header)
 table_data.append(header)
 
 table = AsciiTable(table_data)
-table.title = 'DCSS weapon min delay'
+table.title = table_title
 table.inner_footing_row_border = True
 table.justify_columns[1] = 'right'
 table.justify_columns[2] = 'right'
@@ -103,3 +98,5 @@ table.justify_columns[4] = 'right'
 table.justify_columns[5] = 'right'
 
 print(table.table)
+print('\r')
+print('Last generated on {:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()))

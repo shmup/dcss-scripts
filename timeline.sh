@@ -2,7 +2,7 @@
 # usage: ./timeline.sh > out.txt
 
 {
-    cd ~/code/crawl
+    cd /home/shmup/stuff/crawl
     git pull
 } &> /dev/null
 

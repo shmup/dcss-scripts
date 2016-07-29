@@ -12,11 +12,11 @@ from terminaltables import AsciiTable
 
 fight = 'https://raw.githubusercontent.com/crawl/crawl/master/crawl-ref/source/fight.cc'
 
-# itemprop = 'https://raw.githubusercontent.com/crawl/crawl/master/crawl-ref/source/itemprop.cc'
-# table_title = 'DCSS weapon min delay'
+itemprop = 'https://raw.githubusercontent.com/crawl/crawl/master/crawl-ref/source/itemprop.cc'
+table_title = 'DCSS weapon min delay'
 
-itemprop = 'https://raw.githubusercontent.com/crawl/crawl/stone_soup-0.18/crawl-ref/source/itemprop.cc'
-table_title = 'DCSS 0.18 weapon min delay'
+# itemprop = 'https://raw.githubusercontent.com/crawl/crawl/stone_soup-0.18/crawl-ref/source/itemprop.cc'
+# table_title = 'DCSS 0.18 weapon min delay'
 
 result = urllib.request.urlopen(itemprop)
 
